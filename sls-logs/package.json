@@ -1,0 +1,21 @@
+{
+  "name": "sls-logs",
+  "version": "1.0.0",
+  "main": "index.mjs",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^5.2.0",
+    "commander": "^10.0.1",
+    "enquirer": "^2.3.6"
+  },
+  "devDependencies": {
+    "eslint": "^8.41.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.2"
+  },
+  "engines": {
+    "yarn": "use-pnpm-instead",
+    "npm": "use-pnpm-instead",
+    "node" : ">=20.0.0 <21.0.0"
+  }
+}
