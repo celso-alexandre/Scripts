@@ -26,6 +26,7 @@ program
   .description('Use this to watch lambdas logs using serverless cli. All args are optional')
   .usage('[...lambdasToWatch] [flags]')
   .option('-i, --install', 'Copy this script into the current node project')
+  .option('a, --slsArgs', 'Add extra args to sls command')
   .option('-l, --lambdaDir <string>', `Path to directory containing lambda definition yml files. If not specified, will look at:\n${knownPatsHelp.join(', ')}`)
   .option('-ll, --lambdaList <string...>', 'Lambda list (Overrides --lambdaDir)')
   .option('-o, --logOnce <boolean>', 'Logs just once instead of streaming', false);
@@ -33,7 +34,7 @@ program
 program.parse();
 
 const {
-  install, logOnce, lambdaDir, lambdaList,
+  install, slsArgs, logOnce, lambdaDir, lambdaList,
 } = program.opts();
 const lambdasToWatch = program.args;
 
@@ -119,7 +120,7 @@ async function run() {
   console.log('');
 
   selectedLambdas.forEach((fn) => {
-    const liveLogs = spawn('sh', ['-c', `yarn sls logs ${logOnce ? '' : '-t '}-f ${fn}`]);
+    const liveLogs = spawn('sh', ['-c', `yarn sls logs ${logOnce ? '' : '-t '}-f ${fn}${slsArgs ? ` ${slsArgs}` : ''}`]);
 
     liveLogs.stdout.on('data', (data) => {
       let txt = data.toString();
